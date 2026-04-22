@@ -1,0 +1,33 @@
+name: Simple Demo Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select environment"
+        required: true
+        default: "dev"
+      message:
+        description: "Custom message"
+        required: false
+        default: "Hello from GitHub Actions"
+
+jobs:
+  demo-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Print Selected Branch
+        run: echo "Running on branch: ${{ github.ref_name }}"
+
+      - name: Print Environment
+        run: echo "Environment: ${{ github.event.inputs.environment }}"
+
+      - name: Print Message
+        run: echo "Message: ${{ github.event.inputs.message }}"
+
+      - name: List Files
+        run: ls -la
